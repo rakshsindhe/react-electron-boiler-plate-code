@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import Logo from "../logo.svg"
-import "../App.css"
+import "../App.less"
 
 const About = () => {
     return (
