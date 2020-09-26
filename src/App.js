@@ -1,31 +1,39 @@
-import React from 'react';
-import { Link } from "react-router-dom"
-import logo from './logo.svg';
-import './App.less';
+import React, { Component } from "react";
+import "./App.less";
+import { Button } from "antd";
+import {
+  OPEN_FILE_UPLOAD_DIALOG_WINDOW,
+  FILE_UPLOADED,
+} from "./util/constants";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>React Electron Boilerplate - Rakshian!!</p>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Link className="App-link" to="/about">Link to the About Page</Link>
-        <Link className="App-link" to="/homepage">Link to the Home Page</Link>
-      </header>
-      
-    </div>
-  );
+const electron = window.require("electron");
+const ipcRenderer = electron.ipcRenderer;
+
+export class App extends Component {
+  componentDidMount() {
+    ipcRenderer.on(FILE_UPLOADED, (event, path) => {
+      console.log("FIle Uploaded successfully, Path = ", path);
+    });
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.removeListener(FILE_UPLOADED, (event, path) => {
+      console.log("unmounted event");
+    });
+  }
+
+  handleClick = () => {
+    console.log("Clicked me")
+    ipcRenderer.send(OPEN_FILE_UPLOAD_DIALOG_WINDOW);
+  };
+  render() {
+    return (
+      <div className="App">
+        <h1>API Testing Automation Tool</h1>
+        <Button onClick={this.handleClick}>Upload File</Button>
+      </div>
+    );
+  }
 }
 
 export default App;
