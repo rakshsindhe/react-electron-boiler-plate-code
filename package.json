@@ -30,7 +30,7 @@
     "eject-react": "react-scripts eject",
     "build-electron": "electron-builder",
     "build": "npm run build-react && npm run build-electron",
-    "start": "concurrently \"cross-env BROWSER=none npm run start-react\" \"wait-on http://localhost:3000 && electron .\""
+    "start": "concurrently \"cross-env BROWSER=none npm run start-react\" \"wait-on http://localhost:3000 && nodemon --exec electron .\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,6 +51,7 @@
     "concurrently": "^5.0.0",
     "electron": "^7.1.0",
     "electron-builder": "^22.1.0",
+    "nodemon": "^2.0.4",
     "wait-on": "^3.3.0"
   }
 }

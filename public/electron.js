@@ -1,17 +1,18 @@
 const electron = require("electron");
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const {app, BrowserWindow, Menu} = require('electron')
 const path = require("path");
 const isDev = require("electron-is-dev");
 let mainWindow;
+
+//To Unhide the Menu Bar comment the below line
+Menu.setApplicationMenu(false)
+
 function createWindow() {
     mainWindow = new BrowserWindow({ 
         width: 1200, 
         height: 800,
         icon: ""
-    });
-     
-
+    });     
     mainWindow.loadURL(
         isDev
         ? "http://localhost:3000"
